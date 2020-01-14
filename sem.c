@@ -79,13 +79,15 @@ int main(void)
                 fgets(p_string,sizeof(p_string),stdin);  
                 remove_nl(p_string);
                 printf("\nEnter initial value:");
-                getchar();
+                //getchar();
                 fgets(init_val_string,sizeof(init_val_string),stdin);
+                remove_nl(init_val_string);
                 value = atoi(init_val_string);                                        
                 //permissions = atoi(p_string);
                 //mode_t t_permission = read_umask(permissions);
                 printf("The permissions:%d\n",permissions);
                 printf("Calling sem_open('%s', O_CREAT | O_EXCL)\n", sem_name);
+                printf("Initial value set:%d",value);
                 semdes = sem_open(sem_name, O_CREAT | O_EXCL,permissions,value);                
                 if (semdes == SEM_FAILED)
                 {

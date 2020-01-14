@@ -43,21 +43,20 @@ int main (void)
     n2 = fork(); 
   
     if (n1 > 0 && n2 > 0) { 
-        
-        printf("A:%d \n", 1); 
+        printf("PID:%d\tA:%d\n",getpid(), 1); 
         sem_post(semdA);
         sem_wait(semdD);
-        printf("A:%d \n", 5);
+        printf("PID:%d\tA:%d\n", getpid(),5);
         sem_post(semdA); 
     } 
 
     else if (n1 == 0 && n2 > 0) 
     { 
        sem_wait(semdA);
-       printf("B:%d \n", 2);        
+       printf("PID:%d\tB:%d\n",getpid(),2);        
        sem_post(semdB);
        sem_wait(semdA);
-       printf("B:%d \n", 6);
+       printf("PID:%d\tB:%d\n",getpid(),6);
         sem_post(semdB); 
     } 
 
@@ -65,20 +64,23 @@ int main (void)
     else if (n1 > 0 && n2 == 0) 
     {   
         sem_wait(semdB);
-        printf("C:%d \n", 3); 
+        printf("PID:%d\tC:%d\n",getpid(),3); 
         sem_post(semdC);
         sem_wait(semdB);
-        printf("C:%d \n", 7);
+        getchar();
+        getchar();
+        
+        printf("PID:%d\tC:%d\n",getpid(),7);
         sem_post(semdC); 
     } 
 
 
     else {
         sem_wait(semdC); 
-        printf("D:%d \n", 4);
+        printf("PID:%d\tD:%d\n",getpid(),4);
         sem_post(semdD);
         sem_wait(semdC); 
-        printf("D:%d \n", 8);
+        printf("PID:%d\t D:%d\n", getpid(),8);
         sem_post(semdD); 
 
         sem_unlink(nameA);
